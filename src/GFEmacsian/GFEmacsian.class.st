@@ -1,7 +1,6 @@
 "
 # Overview
 
-**!!!Under construction !!!**
 This project aims to implement keyboard shortcuts like emacs on Pharo.
 Currently, this is for mac only because of its keyboard layout.
 
@@ -19,6 +18,7 @@ Metacello new
 # Features
 - Cursor move: Crtl + f, Crtl + b, Ctrl + n, Ctrl + p, Ctrl + a, Ctrl + e.
 - Kill yank: Ctrl + k, Ctrl + y (without killing ring. just do cut and paste).
+- Other: Crtl + o
 
 # Acknowledgements
 This is very inspired by these. **THANKS VERY MUCH !**

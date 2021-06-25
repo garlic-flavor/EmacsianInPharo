@@ -65,4 +65,9 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 		default: $y ctrl 
 		do: [ :target | target editor paste ]
 		description: 'GFEmacsian: Do paste.'.
+	(aBuilder shortcut: #gfemacsianInsertCursorToFront)
+		category: #RubTextEditor
+		default: $o ctrl 
+		do: [ :target | target editor crWithIndent: key. target editor cursorUp: key. ]
+		description: 'GFEmacsian: Insert CRLF to front of the caret.'
 ]
