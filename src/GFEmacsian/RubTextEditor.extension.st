@@ -50,14 +50,19 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 	(aBuilder shortcut: #gfemacsianKill)
 		category: #RubTextEditor
 		default: $k ctrl 
-		do: [ :target | |editor start end|
+		do: [ :target | |editor c start end|
 			editor := target editor.
-			start := editor caret.
-			editor cursorEnd: key.
-			end := editor caret.
-			editor selectFrom: start to: (end - 1).
-			editor copySelection.
-			editor replaceSelectionWith: ''.
+			c := editor string at: editor caret ifAbsent: [Character cr].
+			c = Character cr ifTrue: [
+				editor forwardDelete: key
+			] ifFalse: [
+				start := editor caret.
+				editor cursorEnd: key.
+				end := editor caret.
+				editor selectFrom: start to: (end - 1).
+				editor copySelection.
+				editor replaceSelectionWith: ''.
+			]
 		]
 		description: 'GFEmacsian: Cut from cursor position to the end of the line.'.
 	(aBuilder shortcut: #gfemacsianYank)
@@ -68,6 +73,11 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 	(aBuilder shortcut: #gfemacsianInsertCursorToFront)
 		category: #RubTextEditor
 		default: $o ctrl 
-		do: [ :target | target editor crWithIndent: key. target editor cursorUp: key. ]
-		description: 'GFEmacsian: Insert CRLF to front of the caret.'
+		do: [ :target |
+			(target editor)
+				crWithIndent: key;
+				cursorUp: key;
+				cursorEnd: key.
+		]
+		description: 'GFEmacsian: Insert CR to front of the caret.'
 ]
