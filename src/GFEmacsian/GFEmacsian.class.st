@@ -44,5 +44,49 @@ GFEmacsian class >> doReset [
 
 { #category : #initialization }
 GFEmacsian class >> initialize [
-	self doReset
+	self
+		doReset;
+		installToFTTableMorph
+	
+]
+
+{ #category : #protected }
+GFEmacsian class >> installToFTTableMorph [
+
+	|original|
+	original := (FTTableMorph>>#initializeKeyBindings) sourceCode.
+	(original findString: 'GFEmacsian') = 0 ifFalse: [ ^ self ].
+	FTTableMorph compile: original, '
+	"added by GFEmacsian".
+	self
+		bindKeyCombination: $n ctrl command
+		toAction: [|parent|
+			(parent := self owner) class = ClyQueryViewMorph ifTrue: [|browser nv idx|
+				browser := parent browser.
+				nv := browser navigationViews.
+				idx := nv detectIndex: [ :e | e = parent ].
+				idx := idx + 1.
+				(nv size < idx ifTrue: [
+					browser tabManager tabMorph contentMorph submorphs at: 1
+				] ifFalse: [
+					(nv at: idx) table
+				]) takeKeyboardFocus
+			]
+		].
+	self
+		bindKeyCombination: $p ctrl command
+		toAction: [|parent|
+			(parent := self owner) class = ClyQueryViewMorph ifTrue: [|browser nv idx|
+				browser := parent browser.
+				nv := browser navigationViews.
+				idx := nv detectIndex: [ :e | e = parent ].
+				idx := idx - 1.
+				(idx < 1 ifTrue: [
+					browser tabManager tabMorph contentMorph submorphs at: 1
+				] ifFalse: [
+					(nv at: idx) table
+				]) takeKeyboardFocus
+			]
+		]
+'
 ]

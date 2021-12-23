@@ -70,6 +70,7 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 		default: $y ctrl 
 		do: [ :target | target editor paste ]
 		description: 'GFEmacsian: Do paste.'.
+
 	(aBuilder shortcut: #gfemacsianInsertCursorToFront)
 		category: #RubTextEditor
 		default: $o ctrl 
@@ -79,5 +80,26 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 				cursorUp: key;
 				cursorEnd: key.
 		]
-		description: 'GFEmacsian: Insert CR to front of the caret.'
+		description: 'GFEmacsian: Insert CR to front of the caret.'.
+
+	(aBuilder shortcut: #gfemacsianMoveToPackageSelector)
+		category: #RubTextEditor
+		default: $n ctrl command
+		do: [ :target ||fullbrowser|
+			(fullbrowser := target browser) ifNotNil: [
+				fullbrowser packageView takeKeyboardFocus
+			].
+		]
+		description: 'GFEmacsian: In System Browser, select package view.'.
+
+	(aBuilder shortcut: #gfemacsianMoveToMethodSelector)
+		category: #RubTextEditor
+		default: $p ctrl command
+		do: [ :target ||fullbrowser|
+			(fullbrowser := target browser) ifNotNil: [
+				fullbrowser methodView takeKeyboardFocus
+			].
+		]
+		description: 'GFEmacsian: In System Browser, select method view.'.
+
 ]
