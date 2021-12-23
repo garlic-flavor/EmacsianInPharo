@@ -86,19 +86,23 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 		category: #RubTextEditor
 		default: $n ctrl command
 		do: [ :target ||fullbrowser|
-			(fullbrowser := target browser) ifNotNil: [
-				fullbrowser packageView takeKeyboardFocus
-			].
+			target class = RubEditingArea ifTrue: [
+				(fullbrowser := target browser) ifNotNil: [
+					fullbrowser packageView takeKeyboardFocus
+				]
+			]
 		]
 		description: 'GFEmacsian: In System Browser, select package view.'.
 
 	(aBuilder shortcut: #gfemacsianMoveToMethodSelector)
-		category: #RubTextEditor
+		category: #ClyTextEditor
 		default: $p ctrl command
 		do: [ :target ||fullbrowser|
-			(fullbrowser := target browser) ifNotNil: [
-				fullbrowser methodView takeKeyboardFocus
-			].
+			target class = RubEditingArea ifTrue: [
+				(fullbrowser := target browser) ifNotNil: [
+					fullbrowser methodView takeKeyboardFocus
+				]
+			]
 		]
 		description: 'GFEmacsian: In System Browser, select method view.'.
 
