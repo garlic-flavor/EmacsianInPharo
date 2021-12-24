@@ -92,6 +92,21 @@ GFEmacsian class >> installToFTTableMorph [
 	self 
 		bindKeyCombination: $n ctrl
 		toAction: [ :target :morph :event | self keyStrokeArrowDown: event ].
-
+	self
+		bindKeyCombination: $c ctrl command
+		toAction: [ :target :morph :event ||parent|
+			(parent := self owner) class = ClyQueryViewMorph ifTrue: [|browser actualObjects|
+				browser := parent browser.
+				actualObjects := browser classSelection actualObjects.
+				actualObjects ifNotEmpty: [|first|
+					first := actualObjects first.
+					browser selectClass: (browser metaLevelScope = ClyInstanceSideScope ifTrue: [
+						first classSide
+					] ifFalse: [
+						first instanceSide
+					])
+				]
+			]
+		].
 '
 ]
