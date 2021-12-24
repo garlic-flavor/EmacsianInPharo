@@ -54,10 +54,8 @@ GFEmacsian class >> initialize [
 GFEmacsian class >> installToFTTableMorph [
 
 	|original|
-	original := (FTTableMorph>>#initializeKeyBindings) sourceCode.
-	(original findString: 'GFEmacsian') = 0 ifFalse: [ ^ self ].
-	FTTableMorph compile: original, '
-	"added by GFEmacsian".
+	original := (FTTableMorph>>#initializeKeyBindings) sourceCode copyUpToSubstring: '"added by GFEmacsian"'.
+	FTTableMorph compile: original, '"added by GFEmacsian".
 	self
 		bindKeyCombination: $n ctrl command
 		toAction: [|parent|
@@ -87,6 +85,13 @@ GFEmacsian class >> installToFTTableMorph [
 					(nv at: idx) table
 				]) takeKeyboardFocus
 			]
-		]
+		].
+	self 
+		bindKeyCombination: $p ctrl
+		toAction: [ :target :morph :event | self keyStrokeArrowUp: event ].
+	self 
+		bindKeyCombination: $n ctrl
+		toAction: [ :target :morph :event | self keyStrokeArrowDown: event ].
+
 '
 ]
