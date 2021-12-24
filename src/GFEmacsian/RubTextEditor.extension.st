@@ -95,7 +95,7 @@ RubTextEditor class >> buildGFEmacsianShortcut: aBuilder [
 		description: 'GFEmacsian: In System Browser, select package view.'.
 
 	(aBuilder shortcut: #gfemacsianMoveToMethodSelector)
-		category: #ClyTextEditor
+		category: #RubTextEditor
 		default: $p ctrl command
 		do: [ :target ||fullbrowser|
 			target class = RubEditingArea ifTrue: [
