@@ -7,6 +7,8 @@ Currently, this is for mac only because of its keyboard layout.
 # aboud D4C branch
 - Ctrl+Command+n to change keyboard focus to clockwisely next pane of system browser. (e.g. notebook pane to package pane)
 - Ctrl+Command+p to previous pane. (e.g. notebook pane to method pane)
+- Ctrl+n to Ctrl+p change item in list view
+- Ctrl+Command+m to change metalevel of browser(switch class side and instance side).
 
 ## How DIRTY it is.
 - GFEmacsian class>>#initialize does modify FTTableMorph>>#initializeKeyBindings.
